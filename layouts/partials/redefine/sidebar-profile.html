@@ -5,4 +5,18 @@
     <div class="name">{{ $r.info.author | default site.Params.author }}</div>
     <div class="label">{{ $r.info.subtitle }}</div>
   </div>
+  <div class="statistics">
+    <a class="item tag-count-item" href="{{ "tags/" | relURL }}">
+      <div class="number">{{ len site.Taxonomies.tags }}</div>
+      <div class="label">{{ i18n "tags" | default "Tags" }}</div>
+    </a>
+    <a class="item tag-count-item" href="{{ "categories/" | relURL }}">
+      <div class="number">{{ len site.Taxonomies.categories }}</div>
+      <div class="label">{{ i18n "categories" | default "Categories" }}</div>
+    </a>
+    <a class="item tag-count-item" href="{{ "posts/" | relURL }}">
+      <div class="number">{{ len site.RegularPages }}</div>
+      <div class="label">{{ i18n "posts" | default "Posts" }}</div>
+    </a>
+  </div>
 </div>
