@@ -1,0 +1,5 @@
+<div class="sidebar-statistics">
+  <a class="item" href="{{ "tags/" | relLangURL }}"><strong>{{ len site.Taxonomies.tags }}</strong><span>{{ i18n "tags" }}</span></a>
+  <a class="item" href="{{ "categories/" | relLangURL }}"><strong>{{ len site.Taxonomies.categories }}</strong><span>{{ i18n "categories" }}</span></a>
+  <a class="item" href="{{ "posts/" | relLangURL }}"><strong>{{ len site.RegularPages }}</strong><span>{{ i18n "posts" | default "Posts" }}</span></a>
+</div>

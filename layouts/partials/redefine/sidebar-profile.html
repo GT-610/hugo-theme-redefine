@@ -1,0 +1,8 @@
+{{- $r := site.Params.redefine -}}
+<div class="sidebar-content" marginTop>
+  <div class="avatar"><img src="{{ $r.defaults.avatar | relURL }}" alt="{{ $r.info.author }}"></div>
+  <div class="author">
+    <div class="name">{{ $r.info.author | default site.Params.author }}</div>
+    <div class="label">{{ $r.info.subtitle }}</div>
+  </div>
+</div>

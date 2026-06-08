@@ -1,0 +1,23 @@
+[[main]]
+  name = "Home"
+  pageRef = "/"
+  pre = "fa-regular fa-house"
+  weight = 10
+
+[[main]]
+  name = "Archives"
+  pageRef = "/posts"
+  pre = "fa-regular fa-archive"
+  weight = 20
+
+[[main]]
+  name = "Tags"
+  pageRef = "/tags"
+  pre = "fa-regular fa-tags"
+  weight = 30
+
+[[main]]
+  name = "Categories"
+  pageRef = "/categories"
+  pre = "fa-regular fa-folder"
+  weight = 40
