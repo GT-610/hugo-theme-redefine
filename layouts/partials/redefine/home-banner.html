@@ -21,21 +21,28 @@
       {{ end }}
     </div>
     {{ if $r.home_banner.social_links.enable }}
-      <div class="social-contacts">
-        {{ range $r.home_banner.social_links.links }}
-          {{ if .url }}
-            {{ $icon := .icon | default .name }}
-            {{ $href := .url }}
-            {{ if eq $icon "email" }}{{ $href = printf "mailto:%s" .url }}{{ end }}
-            <a href="{{ $href }}" {{ if ne $icon "email" }}target="_blank" rel="noreferrer"{{ end }} aria-label="{{ $icon }}">
-              {{ if or (hasPrefix $icon "/") (hasPrefix $icon "http") }}
-                <img src="{{ $icon | relURL }}" alt="">
-              {{ else }}
-                <i class="{{ cond (in $icon "fa-") $icon (printf "fa-brands fa-%s" $icon) }} fa-fw"></i>
-              {{ end }}
-            </a>
+      <div class="home-banner-actions">
+        <button class="scroll-down" type="button" aria-label="Scroll to content">
+          <i class="fa-solid fa-arrow-down fa-fw"></i>
+        </button>
+        <div class="social-contacts">
+          {{ range $r.home_banner.social_links.links }}
+            {{ if .url }}
+              {{ $icon := .icon | default .name }}
+              {{ $href := .url }}
+              {{ if eq $icon "email" }}{{ $href = printf "mailto:%s" .url }}{{ end }}
+              <a href="{{ $href }}" {{ if ne $icon "email" }}target="_blank" rel="noreferrer"{{ end }} aria-label="{{ $icon }}">
+                {{ if or (hasPrefix $icon "/") (hasPrefix $icon "http") }}
+                  <img src="{{ $icon | relURL }}" alt="">
+                {{ else if eq $icon "email" }}
+                  <i class="fa-solid fa-at fa-fw"></i>
+                {{ else }}
+                  <i class="{{ cond (in $icon "fa-") $icon (printf "fa-brands fa-%s" $icon) }} fa-fw"></i>
+                {{ end }}
+              </a>
+            {{ end }}
           {{ end }}
-        {{ end }}
+        </div>
       </div>
     {{ end }}
   </div>

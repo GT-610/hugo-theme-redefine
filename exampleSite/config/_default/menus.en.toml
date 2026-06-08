@@ -5,7 +5,7 @@
   weight = 10
 
 [[main]]
-  name = "Archives"
+  name = "Posts"
   pageRef = "/posts"
   pre = "fa-solid fa-box-archive"
   weight = 20

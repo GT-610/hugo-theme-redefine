@@ -4,7 +4,7 @@
 {{- $thumb := $p.Params.thumbnail | default $p.Params.cover | default $p.Params.banner -}}
 <li class="home-article-item">
   {{ if $p.Params.sticky }}
-    <div class="home-article-sticky-label"><i class="fa-regular fa-thumbtack"></i>{{ i18n "sticky" }}</div>
+    <div class="home-article-sticky-label"><i class="fa-solid fa-thumbtack"></i>{{ i18n "sticky" }}</div>
   {{ end }}
   {{ if and $thumb (ne $p.Params.thumbnail false) }}
     <a class="home-article-thumbnail" href="{{ $p.RelPermalink }}">

@@ -5,10 +5,16 @@
 
 /* Global transition on all elements */
 * {
+  box-sizing: border-box;
   transition-property: color, background, box-shadow, border-color;
   transition-delay: 0s, 0s, 0s, 0s;
   transition-duration: 0.2s, 0.2s, 0.2s, 0.2s;
   transition-timing-function: ease, ease, ease, ease;
+}
+
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 /* Layout constants */
@@ -63,6 +69,35 @@ html, body {
   font-size: 16px;
   line-height: 1.5;
   scrollbar-gutter: stable;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+ul,
+ol,
+menu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
 }
 
 /* Custom scrollbar */
@@ -2191,56 +2226,121 @@ html.dark .home-banner-background img.dark-banner {
   background: none !important;
 }
 
-/* Social contacts container */
-.home-banner-container .social-contacts {
+.home-article-item,
+.sidebar-links,
+.sidebar-content,
+a.page-number,
+a.extend,
+.right-bottom-tools,
+footer.footer {
+  background-color: var(--background-color-transparent-80) !important;
+}
+
+.right-bottom-tools:hover,
+a.page-number:hover,
+a.extend:hover {
+  background-color: var(--primary-color) !important;
+}
+
+.site-info,
+.home-article-sticky-label {
+  background-color: var(--background-color-transparent-15) !important;
+}
+
+.home-article-sticky-label {
+  backdrop-filter: none !important;
+}
+
+.home-banner-actions {
   position: absolute;
+  left: 0;
+  right: 0;
   bottom: 0.5rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   max-width: 1340px;
   width: 100%;
+  margin: 0 auto;
   padding: 0 2rem;
-  align-items: center;
+  pointer-events: none;
 }
 
 @media (min-width: 640px) {
-  .home-banner-container .social-contacts {
+  .home-banner-actions {
     padding: 0 3rem;
   }
 }
 
-.home-banner-container .social-contacts a {
+.home-banner-actions .scroll-down,
+.home-banner-actions .social-contacts {
+  pointer-events: auto;
+}
+
+/* Social contacts container */
+.home-banner-container .social-contacts {
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
   background-color: var(--home-banner-icons-container-background-color);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--home-banner-icons-container-border-color);
   border-radius: 9999px;
   cursor: pointer;
-  aspect-ratio: 1;
-  height: 100%;
   box-shadow: var(--redefine-box-shadow-flat);
   transition: box-shadow 0.3s ease;
 }
 
-.home-banner-container .social-contacts a:hover {
+.home-banner-container .social-contacts:hover {
   box-shadow: var(--redefine-box-shadow-flat-hover);
+}
+
+.home-banner-container .social-contacts a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  color: var(--home-banner-text-color);
+  line-height: 1;
+  text-decoration: none;
+}
+
+.home-banner-container .social-contacts a:hover,
+.home-banner-container .social-contacts a:focus {
+  color: var(--primary-color);
+}
+
+.home-banner-container .social-contacts i {
+  font-size: 1.15rem;
+}
+
+.home-banner-container .social-contacts img {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  object-fit: contain;
 }
 
 /* Scroll down arrow */
 .home-banner-container .scroll-down {
-  display: flex;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
   padding: 0.75rem;
   background-color: var(--home-banner-icons-container-background-color);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--home-banner-icons-container-border-color);
   border-radius: 9999px;
   cursor: pointer;
-  aspect-ratio: 1;
-  height: 100%;
   box-shadow: var(--redefine-box-shadow-flat);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
@@ -2296,7 +2396,7 @@ html.dark .home-banner-background img.dark-banner {
   background: var(--navbar-gradient);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  padding-top: var(--scroll-progress-bar-height);
+  padding: var(--scroll-progress-bar-height) 3rem 0;
   box-shadow: var(--redefine-box-shadow);
 }
 
@@ -2324,14 +2424,36 @@ html.dark .home-banner-background img.dark-banner {
 .navbar-content .left {
   display: flex;
   align-items: center;
+  min-width: 0;
+}
+
+.navbar-content .left .logo-image {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar-content .left .logo-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-xsmall);
 }
 
 .navbar-content .left .logo-title {
+  display: inline-flex;
+  align-items: center;
   font-size: 1.7rem;
   font-weight: 520;
   line-height: 1;
   color: var(--first-text-color);
   transform: translateY(1px);
+  white-space: nowrap;
 }
 
 .navbar-content .left .logo-title h1 {
@@ -2344,11 +2466,15 @@ html.dark .home-banner-background img.dark-banner {
 }
 
 @media (max-width: 768px) {
+  .navbar-container { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .navbar-content .left .logo-image { width: 36px; height: 36px; }
   .navbar-content .left .logo-title { font-size: 1.53rem; }
   .navbar-content .left .logo-title h1 { font-size: 1.53rem; }
 }
 
 @media (max-width: 640px) {
+  .navbar-container { padding-left: 1rem; padding-right: 1rem; }
+  .navbar-content .left .logo-image { width: 32px; height: 32px; }
   .navbar-content .left .logo-title { font-size: 1.36rem; }
   .navbar-content .left .logo-title h1 { font-size: 1.36rem; }
 }
@@ -2358,6 +2484,9 @@ html.dark .home-banner-background img.dark-banner {
   display: flex;
   gap: 24px;
   align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 @media (max-width: 768px) {
@@ -2365,7 +2494,7 @@ html.dark .home-banner-background img.dark-banner {
 }
 
 .navbar-item {
-  float: left;
+  float: none;
   position: relative;
   font-size: 1rem;
   font-weight: 500;
@@ -2374,8 +2503,13 @@ html.dark .home-banner-background img.dark-banner {
 }
 
 .navbar-item a {
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   padding: 5px;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .navbar-item a .fa-chevron-down {
@@ -2439,6 +2573,8 @@ html.dark .home-banner-background img.dark-banner {
   width: auto;
   text-align: center;
   list-style: none;
+  margin-left: 0;
+  margin-right: 0;
   padding: 0 10px;
   border-radius: var(--radius-large);
   max-height: 0px;

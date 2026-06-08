@@ -31,6 +31,10 @@
     if (event.target.closest(".tool-dark-light-toggle")) setTheme(!root.classList.contains("dark"));
     if (event.target.closest(".tool-scroll-to-top")) window.scrollTo({ top: 0, behavior: "smooth" });
     if (event.target.closest(".tool-scroll-to-bottom")) window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+    if (event.target.closest(".scroll-down")) {
+      const target = document.querySelector(".main-content-container");
+      window.scrollTo({ top: target ? target.offsetTop : window.innerHeight, behavior: "smooth" });
+    }
 
     const img = event.target.closest(".markdown-body img");
     if (img) {

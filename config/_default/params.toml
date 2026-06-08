@@ -6,7 +6,7 @@
 
 [redefine.defaults]
   favicon = "/images/redefine-favicon.svg"
-  logo = ""
+  logo = "/images/redefine-logo.svg"
   avatar = "/images/redefine-avatar.svg"
 
 [redefine.colors]
@@ -66,7 +66,7 @@
     dark = "/images/wallhaven-wqery6-dark.webp"
 
   [redefine.home_banner.subtitle]
-    text = []
+    text = ["A simple, fast and pure theme."]
     typing_speed = 100
     backing_speed = 80
     starting_delay = 500
@@ -93,9 +93,17 @@
     url = ""
 
   [redefine.home_banner.social_links]
-    enable = false
+    enable = true
     style = "default"
-    links = []
+    [[redefine.home_banner.social_links.links]]
+      icon = "github"
+      url = "https://github.com/GT-610/hugo-theme-redefine"
+    [[redefine.home_banner.social_links.links]]
+      icon = "npm"
+      url = "https://www.npmjs.com/package/hexo-theme-redefine"
+    [[redefine.home_banner.social_links.links]]
+      icon = "email"
+      url = "you@example.com"
     qrs = []
 
 [redefine.navbar]

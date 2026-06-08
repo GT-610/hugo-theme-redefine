@@ -1,0 +1,25 @@
+baseURL = "https://example.org/"
+locale = "en"
+title = "Redefine Hugo Example"
+theme = "hugo-theme-redefine"
+defaultContentLanguage = "en"
+
+[pagination]
+  pagerSize = 6
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
