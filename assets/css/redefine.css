@@ -1431,6 +1431,12 @@ div.tabs .tab-content .tab-pane *:first-child {
    ========================================================================== */
 
 .post-page-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   gap: 0px;
 }
 
@@ -1495,6 +1501,109 @@ div.tabs .tab-content .tab-pane *:first-child {
   box-shadow: var(--redefine-box-shadow);
 }
 
+.article-title {
+  position: relative;
+  width: 100%;
+}
+
+.article-cover-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.article-cover {
+  display: block;
+  width: 100%;
+  height: 20rem;
+  object-fit: cover;
+  border-radius: var(--radius-large) var(--radius-large) 0 0;
+}
+
+.article-title-cover-wrap {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.article-title-cover,
+.article-title-regular {
+  color: var(--second-text-color);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.article-title-cover {
+  margin: 24px;
+  padding: 12px 16px;
+  font-size: 3rem;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-medium);
+  background: var(--background-color-transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.article-title-regular {
+  margin: 0;
+  padding: 24px 32px 12px;
+  font-size: 3.2rem;
+  letter-spacing: 0;
+}
+
+.article-title-regular.center {
+  text-align: center;
+}
+
+.article-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 0 32px;
+}
+
+.article-header .avatar {
+  flex: 0 0 46px;
+  width: 46px;
+  height: 46px;
+  padding: 1px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-medium);
+  box-sizing: border-box;
+}
+
+.article-header .info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.article-header .author {
+  display: flex;
+  align-items: center;
+}
+
+.article-header .author .name {
+  color: var(--default-text-color);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.article-header .author-label {
+  margin-left: 6px;
+  padding: 2px 8px;
+  color: var(--third-text-color);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  border: 1px solid var(--shadow-color-1);
+  border-radius: var(--radius-small);
+}
+
 .article-content-container:hover {
   box-shadow: var(--redefine-box-shadow-hover);
 }
@@ -1520,6 +1629,8 @@ div.tabs .tab-content .tab-pane *:first-child {
   border-radius: 12.18px;
   width: 100%;
   height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .article-content-container .article-header,
@@ -1537,6 +1648,7 @@ div.tabs .tab-content .tab-pane *:first-child {
 
 .article-content-container .article-content {
   margin-top: var(--spacing-unit);
+  padding: 0 32px 10px;
   padding-bottom: 10px;
   word-wrap: break-word;
   border-bottom: 1px solid var(--border-color);
@@ -1545,6 +1657,59 @@ div.tabs .tab-content .tab-pane *:first-child {
 
 .article-content-container .article-content > :first-child {
   margin-top: 0 !important;
+}
+
+.post-copyright-info {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 32px 0;
+  padding: 0 32px;
+}
+
+.post-tags-box {
+  display: none;
+}
+
+.article-nav,
+.comment-container {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+@media (max-width: 768px) {
+  .article-cover { height: 18rem; }
+  .article-title-cover { font-size: 2.25rem; }
+  .article-title-regular {
+    padding-left: 24px;
+    padding-right: 24px;
+    font-size: 2.5rem;
+  }
+  .article-header,
+  .article-content-container .article-content,
+  .post-copyright-info,
+  .article-nav,
+  .comment-container {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .article-cover { height: 15rem; }
+  .article-title-cover { font-size: 1.875rem; }
+  .article-title-regular {
+    padding-left: 8px;
+    padding-right: 8px;
+    font-size: 2.25rem;
+  }
+  .article-header,
+  .article-content-container .article-content,
+  .post-copyright-info,
+  .article-nav,
+  .comment-container {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
 
 /* Prev/Next navigation */
