@@ -64,6 +64,7 @@
     --redefine-box-shadow-hover: var(--shadow-color-2) 0 6px 24px 0, var(--shadow-color-1) 0 0 0 1px, var(--shadow-color-1) 0 0 0 1px inset;
     --redefine-box-shadow-flat: var(--shadow-color-2) 0 1px 4px 0, var(--shadow-color-1) 0 0 0 1px;
     --redefine-box-shadow-flat-hover: var(--shadow-color-2) 0 1px 4px 0, var(--shadow-color-1) 0 0 0 1px, var(--shadow-color-1) 0 0 0 1px inset;
+    --toc-child-display: {{ if $r.articles.toc.expand | default true }}block{{ else }}none{{ end }};
   }
   html.dark {
     --background-color: #202124;

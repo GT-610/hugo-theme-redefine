@@ -2035,6 +2035,47 @@ figure.image-caption figcaption {
   transition: filter 0.3s ease;
 }
 
+.home-banner-background.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  transform: scale(1.25);
+  box-sizing: border-box;
+  will-change: transform;
+  background-size: cover;
+  z-index: 0;
+}
+
+@media (min-width: 640px) {
+  .home-banner-background.fixed {
+    transform: scale(1.1);
+  }
+}
+
+.home-banner-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-banner-background img.light-banner {
+  display: block;
+}
+
+.home-banner-background img.dark-banner {
+  display: none;
+}
+
+html.dark .home-banner-background img.light-banner {
+  display: none;
+}
+
+html.dark .home-banner-background img.dark-banner {
+  display: block;
+}
+
 .home-banner-container {
   font-family: 'Chillax-Variable', sans-serif;
   position: relative;
@@ -2043,18 +2084,33 @@ figure.image-caption figcaption {
   min-height: 100vh;
   overflow: hidden;
   will-change: transform;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .home-banner-container .content {
   position: relative;
   box-sizing: border-box;
   min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
 }
 
 .home-banner-container .content .description {
   font-size: var(--home-banner-title-size);
   line-height: var(--home-banner-line-height);
   color: var(--home-banner-text-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  font-weight: 500;
+  text-align: center;
 }
 
 .home-banner-container .content .description p {
@@ -2071,6 +2127,95 @@ figure.image-caption figcaption {
 
 .home-banner-container .content .description p span {
   font-size: calc(var(--home-banner-subtitle-size) * 1.05);
+}
+
+/* Fixed banner style overrides - transparent backgrounds */
+.home-banner-container .home-banner-background {
+  background: none !important;
+}
+
+/* Social contacts container */
+.home-banner-container .social-contacts {
+  position: absolute;
+  bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  max-width: 1340px;
+  width: 100%;
+  padding: 0 2rem;
+  align-items: center;
+}
+
+@media (min-width: 640px) {
+  .home-banner-container .social-contacts {
+    padding: 0 3rem;
+  }
+}
+
+.home-banner-container .social-contacts a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background-color: var(--home-banner-icons-container-background-color);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--home-banner-icons-container-border-color);
+  border-radius: 9999px;
+  cursor: pointer;
+  aspect-ratio: 1;
+  height: 100%;
+  box-shadow: var(--redefine-box-shadow-flat);
+  transition: box-shadow 0.3s ease;
+}
+
+.home-banner-container .social-contacts a:hover {
+  box-shadow: var(--redefine-box-shadow-flat-hover);
+}
+
+/* Scroll down arrow */
+.home-banner-container .scroll-down {
+  display: flex;
+  padding: 0.75rem;
+  background-color: var(--home-banner-icons-container-background-color);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--home-banner-icons-container-border-color);
+  border-radius: 9999px;
+  cursor: pointer;
+  aspect-ratio: 1;
+  height: 100%;
+  box-shadow: var(--redefine-box-shadow-flat);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.home-banner-container .scroll-down:hover {
+  box-shadow: var(--redefine-box-shadow-flat-hover);
+  transform: translateY(4px);
+}
+
+/* Mobile QR code toggle */
+.qr-toggle-item.qr-active .qr-popup {
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .qr-toggle-item:focus,
+  .qr-toggle-item:hover {
+    background-color: transparent;
+  }
+
+  .qr-toggle-item .qr-trigger:focus,
+  .qr-toggle-item .qr-trigger:hover {
+    background-color: transparent;
+    color: inherit;
+  }
+
+  .qr-popup {
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2399,6 +2544,82 @@ html.is-animating .transition-navbar {
    Converted from: source/css/layout/_partials/footer.styl
    ========================================================================== */
 
+.footer {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  height: auto;
+  font-size: 1rem;
+  color: var(--third-text-color);
+  position: relative;
+  border-top: 2px solid var(--border-color);
+}
+
+.footer .info-container {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  text-align: center;
+}
+
+.footer .info-container .customize-info {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.footer .info-container .copyright-line {
+  text-align: center;
+}
+
+.footer .info-container .copyright-line a {
+  color: var(--third-text-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer .info-container .copyright-line a:hover {
+  color: var(--primary-color);
+}
+
+.footer .info-container .post-count {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.footer .info-container .powered-line {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.footer .info-container .powered-line a {
+  color: var(--third-text-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer .info-container .powered-line a:hover {
+  color: var(--primary-color);
+}
+
+.footer .info-container .runtime {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.footer .info-container .icp-info {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.footer .info-container .icp-info a {
+  color: var(--third-text-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer .info-container .icp-info a:hover {
+  color: var(--primary-color);
+}
+
 .footer .odometer.odometer-auto-theme,
 .footer .odometer.odometer-theme-default {
   display: inline-block;
@@ -2648,7 +2869,7 @@ html.is-animating .transition-navbar {
 }
 
 .post-toc .nav .nav-child {
-  display: block; /* Controlled by articles.toc.expand config */
+  display: var(--toc-child-display, block); /* Controlled by articles.toc.expand config */
 }
 
 .post-toc .nav .active > .nav-child { display: block; }
