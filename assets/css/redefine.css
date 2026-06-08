@@ -2163,7 +2163,6 @@ figure.image-caption figcaption {
 
 .home-sidebar-container .sidebar-content:hover {
   box-shadow: var(--redefine-box-shadow-hover);
-  transform: scaleX(1.02) scaleY(1.02);
 }
 
 .home-sidebar-container .sidebar-content[marginTop] {
@@ -2252,7 +2251,6 @@ figure.image-caption figcaption {
 
 .sidebar-links:hover {
   box-shadow: var(--redefine-box-shadow-hover);
-  transform: scaleX(1.02) scaleY(1.02);
 }
 
 .sidebar-links[marginTop] {
