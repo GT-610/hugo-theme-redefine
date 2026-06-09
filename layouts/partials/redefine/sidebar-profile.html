@@ -2,6 +2,8 @@
 {{- $tagsPage := site.GetPage "taxonomyTerm" "tags" -}}
 {{- $categoriesPage := site.GetPage "taxonomyTerm" "categories" -}}
 {{- $postsPage := site.GetPage "section" "posts" -}}
+{{- $postsCount := len (where site.RegularPages "Section" "posts") -}}
+{{- with $postsPage }}{{ $postsCount = len .RegularPages }}{{ end -}}
 <div class="sidebar-content has-margin-top">
   <div class="avatar"><img src="{{ $r.defaults.avatar | relURL }}" alt="{{ $r.info.author }}"></div>
   <div class="author">
@@ -18,7 +20,7 @@
       <div class="label">{{ i18n "categories" | default "Categories" }}</div>
     </a>
     <a class="item tag-count-item" href="{{ with $postsPage }}{{ .RelPermalink }}{{ else }}{{ "posts/" | relLangURL }}{{ end }}">
-      <div class="number">{{ len site.RegularPages }}</div>
+      <div class="number">{{ $postsCount }}</div>
       <div class="label">{{ i18n "posts" | default "Posts" }}</div>
     </a>
   </div>
