@@ -7,7 +7,10 @@
     root.classList.toggle("light", !isDark);
     root.style.colorScheme = isDark ? "dark" : "light";
     try {
-      localStorage.setItem(themeKey, JSON.stringify({ isDark }));
+      const raw = localStorage.getItem(themeKey);
+      const stored = raw ? JSON.parse(raw) : {};
+      const next = stored && typeof stored === "object" ? { ...stored, isDark } : { isDark };
+      localStorage.setItem(themeKey, JSON.stringify(next));
     } catch (e) {}
   }
 
@@ -54,7 +57,7 @@
     const runtime = document.querySelector(".runtime[data-start]");
     if (!runtime) return;
     const start = new Date(runtime.dataset.start).getTime();
-    if (!start) return;
+    if (Number.isNaN(start)) return;
     const seconds = Math.max(0, Math.floor((Date.now() - start) / 1000));
     const days = Math.floor(seconds / 86400);
     const hours = Math.floor((seconds % 86400) / 3600);

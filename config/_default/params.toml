@@ -103,7 +103,7 @@
       url = "https://www.npmjs.com/package/hexo-theme-redefine"
     [[redefine.home_banner.social_links.links]]
       icon = "email"
-      url = "you@example.com"
+      url = "mailto:you@example.com"
     qrs = []
 
 [redefine.navbar]

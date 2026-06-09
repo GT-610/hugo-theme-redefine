@@ -37,6 +37,7 @@
                 {{ else if eq $icon "email" }}
                   <i class="fa-solid fa-at fa-fw"></i>
                 {{ else }}
+                  {{- /* Social link names without an explicit fa-* prefix are treated as brand icons. */ -}}
                   <i class="{{ cond (in $icon "fa-") $icon (printf "fa-brands fa-%s" $icon) }} fa-fw"></i>
                 {{ end }}
               </a>

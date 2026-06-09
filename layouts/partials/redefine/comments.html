@@ -224,6 +224,9 @@
   {{- else if eq $r.comment.system "gitalk" -}}
     {{- with $r.comment.config.gitalk -}}
       {{- if and .client_id .client_secret .repo .owner -}}
+        {{- /* Gitalk requires clientSecret in browser-side JS. Treat it as public:
+              prefer Giscus/utterances for new sites, or use a server-side proxy
+              and least-privilege OAuth app if the secret must remain private. */ -}}
         <div class="gitalk-container">
           <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
           <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>

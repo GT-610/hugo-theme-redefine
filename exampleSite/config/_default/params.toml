@@ -18,7 +18,7 @@ mainSections = ["posts"]
     url = "https://github.com/GT-610/hugo-theme-redefine"
   [[redefine.home_banner.social_links.links]]
     icon = "email"
-    url = "you@example.com"
+    url = "mailto:you@example.com"
 
 [redefine.navbar.search]
   enable = true

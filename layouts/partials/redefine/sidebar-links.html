@@ -1,5 +1,5 @@
 {{- $r := site.Params.redefine -}}
-<div class="sidebar-links" marginTop>
+<div class="sidebar-links has-margin-top">
   <div class="site-info">
     <div class="site-name">{{ $r.info.title | default site.Title }}</div>
     {{ with $r.home.sidebar.announcement }}<div class="announcement">{{ . | markdownify }}</div>{{ end }}

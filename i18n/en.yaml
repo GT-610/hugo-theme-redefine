@@ -43,11 +43,11 @@ runtime:
 days:
   other: "days"
 hours:
-  other: "hrs"
+  other: "hours"
 minutes:
-  other: "Min"
+  other: "minutes"
 seconds:
-  other: "Sec"
+  other: "seconds"
 copyright_title:
   other: "Title"
 copyright_author:

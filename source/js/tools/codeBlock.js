@@ -32,7 +32,9 @@ const initCopyCode = () => {
       const code = codeLines.map((line) => line.innerText).join("\n");
 
       if (navigator.clipboard?.writeText) {
-        navigator.clipboard.writeText(code);
+        navigator.clipboard.writeText(code).catch((error) => {
+          console.warn("Failed to copy code:", error);
+        });
       }
 
       copyButton.querySelector("i").className = "fa-regular fa-check";

@@ -1,20 +1,23 @@
 {{- $r := site.Params.redefine -}}
-<div class="sidebar-content" marginTop>
+{{- $tagsPage := site.GetPage "taxonomyTerm" "tags" -}}
+{{- $categoriesPage := site.GetPage "taxonomyTerm" "categories" -}}
+{{- $postsPage := site.GetPage "section" "posts" -}}
+<div class="sidebar-content has-margin-top">
   <div class="avatar"><img src="{{ $r.defaults.avatar | relURL }}" alt="{{ $r.info.author }}"></div>
   <div class="author">
     <div class="name">{{ $r.info.author | default site.Params.author }}</div>
     <div class="label">{{ $r.info.subtitle }}</div>
   </div>
   <div class="statistics">
-    <a class="item tag-count-item" href="{{ "tags/" | relURL }}">
+    <a class="item tag-count-item" href="{{ with $tagsPage }}{{ .RelPermalink }}{{ else }}{{ "tags/" | relLangURL }}{{ end }}">
       <div class="number">{{ len site.Taxonomies.tags }}</div>
       <div class="label">{{ i18n "tags" | default "Tags" }}</div>
     </a>
-    <a class="item tag-count-item" href="{{ "categories/" | relURL }}">
+    <a class="item tag-count-item" href="{{ with $categoriesPage }}{{ .RelPermalink }}{{ else }}{{ "categories/" | relLangURL }}{{ end }}">
       <div class="number">{{ len site.Taxonomies.categories }}</div>
       <div class="label">{{ i18n "categories" | default "Categories" }}</div>
     </a>
-    <a class="item tag-count-item" href="{{ "posts/" | relURL }}">
+    <a class="item tag-count-item" href="{{ with $postsPage }}{{ .RelPermalink }}{{ else }}{{ "posts/" | relLangURL }}{{ end }}">
       <div class="number">{{ len site.RegularPages }}</div>
       <div class="label">{{ i18n "posts" | default "Posts" }}</div>
     </a>

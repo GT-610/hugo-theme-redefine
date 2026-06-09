@@ -2165,7 +2165,7 @@ figure.image-caption figcaption {
   box-shadow: var(--redefine-box-shadow-hover);
 }
 
-.home-sidebar-container .sidebar-content[marginTop] {
+.home-sidebar-container .sidebar-content.has-margin-top {
   margin-top: 22.8px;
 }
 
@@ -2253,7 +2253,7 @@ figure.image-caption figcaption {
   box-shadow: var(--redefine-box-shadow-hover);
 }
 
-.sidebar-links[marginTop] {
+.sidebar-links.has-margin-top {
   margin-top: 22.8px;
 }
 
