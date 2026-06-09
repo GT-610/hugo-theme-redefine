@@ -1,4 +1,5 @@
 const keys = new Set();
+const inflight = new Map();
 
 const normalizeKey = (key) => String(key).trim().replace(/[^a-zA-Z0-9]/g, "_");
 
@@ -13,14 +14,25 @@ export const onceGlobal = (key, callback) => {
   if (keys.has(normalizedKey)) {
     return;
   }
+  if (inflight.has(normalizedKey)) {
+    return inflight.get(normalizedKey);
+  }
 
   try {
     const result = callback();
     if (isPromiseLike(result)) {
-      return result.then((value) => {
-        keys.add(normalizedKey);
-        return value;
-      });
+      const promise = result
+        .then((value) => {
+          keys.add(normalizedKey);
+          inflight.delete(normalizedKey);
+          return value;
+        })
+        .catch((error) => {
+          inflight.delete(normalizedKey);
+          throw error;
+        });
+      inflight.set(normalizedKey, promise);
+      return promise;
     }
     keys.add(normalizedKey);
     return result;
