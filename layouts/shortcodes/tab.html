@@ -7,7 +7,11 @@
   {{- if ge (len .Params) 1 }}{{ $title = .Get 0 | default "" }}{{ end -}}
   {{- if ge (len .Params) 2 }}{{ with .Get 1 }}{{ $icon = . }}{{ end }}{{ end -}}
 {{- end -}}
-{{- $content := .InnerDeindent | strings.TrimSpace | .Page.RenderString -}}
-{{- $tabs := .Parent.Store.Get "tabs" | default slice -}}
-{{- .Parent.Store.Set "tabs" ($tabs | append (dict "title" $title "icon" $icon "content" $content)) -}}
-{{- .Parent.Store.Set "tab-index" (add (.Parent.Store.Get "tab-index" | default 0) 1) -}}
+{{- with .Parent -}}
+  {{- $content := $.InnerDeindent | strings.TrimSpace | $.Page.RenderString -}}
+  {{- $tabs := .Store.Get "tabs" | default slice -}}
+  {{- .Store.Set "tabs" ($tabs | append (dict "title" $title "icon" $icon "content" $content)) -}}
+  {{- .Store.Set "tab-index" (add (.Store.Get "tab-index" | default 0) 1) -}}
+{{- else -}}
+  {{- errorf "The tab shortcode must be used inside a tabs shortcode: %s" .Position -}}
+{{- end -}}

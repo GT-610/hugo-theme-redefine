@@ -9,6 +9,8 @@
   {{- if ge (len .Params) 1 }}{{ with .Get 0 }}{{ $active = int . }}{{ end }}{{ end -}}
 {{- end -}}
 {{- if lt $active 1 }}{{ $active = 1 }}{{ end -}}
+{{- $tabCount := len $tabs -}}
+{{- if and (gt $tabCount 0) (gt $active $tabCount) }}{{ $active = $tabCount }}{{ end -}}
 {{- $name := "" -}}
 {{- if .IsNamedParams }}{{ with .Get "name" }}{{ $name = . }}{{ end }}{{ end -}}
 {{- $base := printf "tabs-%d-%s" .Ordinal $name | anchorize -}}

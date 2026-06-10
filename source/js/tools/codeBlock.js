@@ -18,6 +18,7 @@ const initCopyCode = () => {
       wrapElement(element, container);
     }
 
+    element.dataset.codeBlockReady = "true";
     container.dataset.codeBlockReady = "true";
 
     if (!container.querySelector(".copy-button")) {

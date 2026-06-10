@@ -5,16 +5,37 @@ const navbarState = {
 
 let didInit = false;
 const drawerOpenClass = "navbar-drawer-show";
+const drawerItemSelector =
+  ".navbar-drawer .drawer-navbar-list .drawer-navbar-item > a, .navbar-drawer .tag-count-item";
+const drawerFocusableSelector = 'a, button, input, [tabindex]:not([tabindex="-1"])';
 
-const setDrawerOpen = (isOpen) => {
+let drawerTrigger = null;
+
+const setDrawerOpen = (isOpen, trigger = drawerTrigger) => {
+  const wasOpen = document.body.classList.contains(drawerOpenClass);
+
+  if (trigger) {
+    drawerTrigger = trigger;
+  }
+
   document.body.classList.toggle(drawerOpenClass, isOpen);
   document.querySelectorAll(".navbar-bar").forEach((button) => {
     button.setAttribute("aria-expanded", String(isOpen));
   });
+
+  if (isOpen && !wasOpen) {
+    const drawer = document.getElementById("navbar-drawer");
+    drawer?.querySelector(drawerFocusableSelector)?.focus();
+  }
+
+  if (!isOpen && wasOpen) {
+    drawerTrigger?.focus?.();
+    drawerTrigger = null;
+  }
 };
 
-const toggleDrawer = () => {
-  setDrawerOpen(!document.body.classList.contains(drawerOpenClass));
+const toggleDrawer = (trigger) => {
+  setDrawerOpen(!document.body.classList.contains(drawerOpenClass), trigger);
 };
 
 const closeDrawer = () => {
@@ -30,7 +51,7 @@ const bindDrawerTrigger = (element) => {
   element.addEventListener("click", (event) => {
     event.preventDefault();
     event.stopPropagation();
-    toggleDrawer();
+    toggleDrawer(element);
   });
 };
 
@@ -182,11 +203,7 @@ export const navbarShrink = {
 
     bindDrawerTrigger(this.navbarDom.querySelector(".navbar-bar"));
     bindDrawerClose(this.navbarDom.querySelector(".window-mask"));
-    this.navbarDom
-      .querySelectorAll(
-        ".navbar-drawer .drawer-navbar-list .drawer-navbar-item > a, .navbar-drawer .tag-count-item",
-      )
-      .forEach(bindDrawerClose);
+    this.navbarDom.querySelectorAll(drawerItemSelector).forEach(bindDrawerClose);
 
     navbarState.navbarHeight = this.navbarDom.getBoundingClientRect().height;
     handleScroll();

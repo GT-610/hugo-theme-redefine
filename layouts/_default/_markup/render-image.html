@@ -21,7 +21,7 @@
 {{- define "redefine-render-image" -}}
   <img
     src="{{ cond .lazy ("images/loading.svg" | relURL) (.src | safeURL) }}"
-    {{ if .lazy }}lazyload data-src="{{ .src | safeURL }}" loading="lazy"{{ else }}loading="lazy"{{ end }}
+    {{ if .lazy }}lazyload data-src="{{ .src | safeURL }}" loading="lazy"{{ else }}loading="eager"{{ end }}
     decoding="async"
     alt="{{ .alt }}"
     {{ with .width }}width="{{ . }}"{{ end }}

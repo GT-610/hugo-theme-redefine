@@ -11,9 +11,14 @@
     {{- with $url.Fragment }}{{ $href = printf "%s#%s" $href . }}{{ end -}}
   {{- end -}}
 {{- end -}}
-{{- $isExternal := or (strings.HasPrefix $href "http://") (strings.HasPrefix $href "https://") -}}
+{{- $safeURL := urls.Parse $href -}}
+{{- $allowedSchemes := slice "" "http" "https" "mailto" "tel" -}}
+{{- $isProtocolRelative := strings.HasPrefix $href "//" -}}
+{{- $isAllowed := and (in $allowedSchemes $safeURL.Scheme) (not $isProtocolRelative) -}}
+{{- $safeHref := cond $isAllowed $href "#" -}}
+{{- $isExternal := and $isAllowed (or (strings.HasPrefix $safeHref "http://") (strings.HasPrefix $safeHref "https://")) -}}
 {{- $showIcon := $.Page.Site.Params.redefine.articles.style.link_icon | default true -}}
-<a class="link" href="{{ $href | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>
+<a class="link" href="{{ $safeHref | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $isExternal }} target="_blank" rel="noopener noreferrer"{{ end }}>
   {{- .Text | safeHTML -}}
   {{- if and $showIcon $isExternal }}<i class="link-icon fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>{{ end -}}
 </a>
