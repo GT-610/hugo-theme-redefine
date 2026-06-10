@@ -1,0 +1,3 @@
+<blockquote{{ range $k, $v := .Attributes }}{{ if or (in (slice "class" "id" "cite") $k) (hasPrefix $k "data-") }} {{ $k }}="{{ $v }}"{{ end }}{{ end }}>
+  {{- .Text | safeHTML -}}
+</blockquote>

@@ -4,6 +4,68 @@ const navbarState = {
 };
 
 let didInit = false;
+const drawerOpenClass = "navbar-drawer-show";
+const drawerItemSelector =
+  ".navbar-drawer .drawer-navbar-list .drawer-navbar-item > a, .navbar-drawer .tag-count-item";
+const drawerFocusableSelector = 'a, button, input, [tabindex]:not([tabindex="-1"])';
+
+let drawerTrigger = null;
+
+const setDrawerOpen = (isOpen, trigger = drawerTrigger) => {
+  const wasOpen = document.body.classList.contains(drawerOpenClass);
+
+  if (trigger) {
+    drawerTrigger = trigger;
+  }
+
+  document.body.classList.toggle(drawerOpenClass, isOpen);
+  document.querySelectorAll(".navbar-bar").forEach((button) => {
+    button.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  if (isOpen && !wasOpen) {
+    const drawer = document.getElementById("navbar-drawer");
+    drawer?.querySelector(drawerFocusableSelector)?.focus();
+  }
+
+  if (!isOpen && wasOpen) {
+    drawerTrigger?.focus?.();
+    drawerTrigger = null;
+  }
+};
+
+const toggleDrawer = (trigger) => {
+  setDrawerOpen(!document.body.classList.contains(drawerOpenClass), trigger);
+};
+
+const closeDrawer = () => {
+  setDrawerOpen(false);
+};
+
+const bindDrawerTrigger = (element) => {
+  if (!element || element.dataset.redefineNavbarDrawerBound) {
+    return;
+  }
+
+  element.dataset.redefineNavbarDrawerBound = "true";
+  element.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleDrawer(element);
+  });
+};
+
+const bindDrawerClose = (element) => {
+  if (!element || element.dataset.redefineNavbarDrawerCloseBound) {
+    return;
+  }
+
+  element.dataset.redefineNavbarDrawerCloseBound = "true";
+  element.addEventListener("click", (event) => {
+    event.stopPropagation();
+    closeDrawer();
+  });
+};
 
 const handleScroll = () => {
   if (navbarState.isNavigating) {
@@ -76,20 +138,14 @@ const handleDrawerClose = (event) => {
     return false;
   }
 
-  document.body.classList.remove("navbar-drawer-show");
+  closeDrawer();
   return true;
 };
 
-const handleDrawerToggle = (event) => {
-  const toggleTarget = event.target.closest(
-    ".window-mask, .navbar-bar, .navbar-drawer .drawer-navbar-list .drawer-navbar-item, .navbar-drawer .tag-count-item",
-  );
-  if (!toggleTarget) {
-    return false;
+const handleKeydown = (event) => {
+  if (event.key === "Escape") {
+    closeDrawer();
   }
-
-  document.body.classList.toggle("navbar-drawer-show");
-  return true;
 };
 
 const registerGlobalHandlers = (signal) => {
@@ -100,6 +156,7 @@ const registerGlobalHandlers = (signal) => {
   didInit = true;
   if (signal) {
     window.addEventListener("scroll", handleScroll, { signal });
+    document.addEventListener("keydown", handleKeydown, { signal });
     document.addEventListener(
       "click",
       (event) => {
@@ -109,12 +166,12 @@ const registerGlobalHandlers = (signal) => {
         if (handleDrawerClose(event)) {
           return;
         }
-        handleDrawerToggle(event);
       },
       { signal },
     );
   } else {
     window.addEventListener("scroll", handleScroll);
+    document.addEventListener("keydown", handleKeydown);
     document.addEventListener("click", (event) => {
       if (handleSubmenuToggle(event)) {
         return;
@@ -122,7 +179,6 @@ const registerGlobalHandlers = (signal) => {
       if (handleDrawerClose(event)) {
         return;
       }
-      handleDrawerToggle(event);
     });
   }
 };
@@ -145,6 +201,10 @@ export const navbarShrink = {
       return;
     }
 
+    bindDrawerTrigger(this.navbarDom.querySelector(".navbar-bar"));
+    bindDrawerClose(this.navbarDom.querySelector(".window-mask"));
+    this.navbarDom.querySelectorAll(drawerItemSelector).forEach(bindDrawerClose);
+
     navbarState.navbarHeight = this.navbarDom.getBoundingClientRect().height;
     handleScroll();
   },
@@ -153,6 +213,7 @@ export const navbarShrink = {
     navbarState.isNavigating = isNavigating;
     if (isNavigating) {
       document.body.classList.remove("navbar-shrink");
+      closeDrawer();
     }
   },
 };

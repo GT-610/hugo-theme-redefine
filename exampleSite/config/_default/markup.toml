@@ -1,0 +1,16 @@
+[goldmark]
+  [goldmark.renderer]
+    # Keep raw HTML disabled by default. Set unsafe = true only for sites where
+    # all Markdown input is trusted and maintained by the site owner.
+    unsafe = false
+  [goldmark.parser]
+    wrapStandAloneImageWithinParagraph = false
+    [goldmark.parser.attribute]
+      block = true
+
+[highlight]
+  noClasses = false
+
+[tableOfContents]
+  startLevel = 2
+  endLevel = 4
