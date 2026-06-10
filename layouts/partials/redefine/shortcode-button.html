@@ -23,7 +23,8 @@
 {{- $sizeClass := cond (or (eq $size "sm") (eq $size "small")) "small" (cond (or (eq $size "lg") (eq $size "large")) "large" "") -}}
 {{- $alignClass := cond (in (slice "left" "center" "right") $align) $align "" -}}
 {{- $classes := delimit (slice "button" "not-markdown" $sizeClass $alignClass) " " -}}
-<a class="{{ $classes }}"{{ with $url }} href="{{ . | safeURL }}"{{ end }} title="{{ $text }}"{{ with $target }} target="{{ . }}"{{ end }}{{ with $rel }} rel="{{ . }}"{{ else }}{{ if eq $target "_blank" }} rel="noopener noreferrer"{{ end }}{{ end }}>
-  {{- if $image }}<img src="{{ $image | safeURL }}" alt="{{ $text }}" loading="lazy"> {{ else if $icon }}<i class="{{ $icon }}" aria-hidden="true"></i> {{ end -}}
+{{- $imageAlt := $text | default "Button" -}}
+<a class="{{ $classes }}"{{ with $url }} href="{{ . | safeURL }}"{{ end }}{{ with $text }} title="{{ . }}"{{ end }}{{ with $target }} target="{{ . }}"{{ end }}{{ with $rel }} rel="{{ . }}"{{ else }}{{ if eq $target "_blank" }} rel="noopener noreferrer"{{ end }}{{ end }}>
+  {{- if $image }}<img src="{{ $image | safeURL }}" alt="{{ $imageAlt }}" loading="lazy"> {{ else if $icon }}<i class="{{ $icon }}" aria-hidden="true"></i> {{ end -}}
   {{- $text -}}
 </a>
