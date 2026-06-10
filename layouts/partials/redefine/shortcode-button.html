@@ -24,7 +24,7 @@
 {{- $alignClass := cond (in (slice "left" "center" "right") $align) $align "" -}}
 {{- $classes := delimit (slice "button" "not-markdown" $sizeClass $alignClass) " " -}}
 {{- $imageAlt := $text | default "Button" -}}
-<a class="{{ $classes }}"{{ with $url }} href="{{ . | safeURL }}"{{ end }}{{ with $text }} title="{{ . }}"{{ end }}{{ with $target }} target="{{ . }}"{{ end }}{{ with $rel }} rel="{{ . }}"{{ else }}{{ if eq $target "_blank" }} rel="noopener noreferrer"{{ end }}{{ end }}>
+<a class="{{ $classes }}" href="{{ with $url }}{{ . | safeURL }}{{ else }}#{{ end }}"{{ with $text }} title="{{ . }}"{{ end }}{{ with $target }} target="{{ . }}"{{ end }}{{ with $rel }} rel="{{ . }}"{{ else }}{{ if eq $target "_blank" }} rel="noopener noreferrer"{{ end }}{{ end }}>
   {{- if $image }}<img src="{{ $image | safeURL }}" alt="{{ $imageAlt }}" loading="lazy"> {{ else if $icon }}<i class="{{ $icon }}" aria-hidden="true"></i> {{ end -}}
   {{- $text -}}
 </a>
